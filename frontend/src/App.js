@@ -1,20 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import Routes from 'routes';
+import ThemeCustomization from 'themes';
+import ScrollTop from 'components/ScrollTop';
 
-function App() {
-  const [message, setMessage] = useState("");
+// ==============================|| APP - THEME, ROUTER, LOCAL  ||============================== //
 
-  useEffect(() => {
-    fetch('http://localhost:5000/api/test')
-    .then(response => response.json())
-    .then(data => setMessage(data.message));
-  }, []);
-
-  return (
-    <div className="App">
-      <h1>PokéProgress</h1>
-      <p>{message}</p>
-    </div>
-  );
-}
+const App = () => (
+  <ThemeCustomization>
+    <ScrollTop>
+      <Routes />
+    </ScrollTop>
+  </ThemeCustomization>
+);
 
 export default App;
