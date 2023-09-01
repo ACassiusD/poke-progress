@@ -14,14 +14,14 @@
 - **[Node.js](https://nodejs.org/)**: Enables server-side JavaScript execution.
 - **[Express](https://expressjs.com/)**: A minimalistic web framework for Node.js, simplifying API creation.
 - **[Poke API](https://pokeapi.co/)**: Provides comprehensive Pokémon data, avoiding redundancy.
-- **[JWT](https://jwt.io/)**: Used for user authentication by encoding user data into tokens.
-- **[bcrypt](https://www.npmjs.com/package/bcrypt)**: Library for hashing and validating passwords.
+
 
 ### Database:
 - **[MongoDB](https://www.mongodb.com/)**: A NoSQL database chosen for its flexibility and scalability, particularly suitable for our user authentication and potential future extensions.
 
 ### Authentication:
 - **[JWT](https://jwt.io/)** (JSON Web Tokens): A compact method of representing information between two parties.
+- **[bcrypt](https://www.npmjs.com/package/bcrypt)**: Library for hashing and validating passwords.
 
 ### Hosting/Deployment:
 - **[AWS](https://aws.amazon.com/)**: A potential host for both our React frontend and Node.js backend.
