@@ -1,3 +1,7 @@
+// This file contains a router that handles the authentication of users.
+// It contains two routes: one for registering a new user and one for logging in an existing user.
+// Export the router so it can be used in the server.js file.
+
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');

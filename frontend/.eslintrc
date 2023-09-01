@@ -31,12 +31,14 @@
   },
   "parser": "@babel/eslint-parser",
   "parserOptions": {
-    "ecmaFeatures": {
-      "experimentalObjectRestSpread": true,
-      "impliedStrict": true,
-      "jsx": true
+    "sourceType": "module",
+    "requireConfigFile": false,
+    "babelOptions": {
+      "presets": ["@babel/preset-react"]
     },
-    "ecmaVersion": 12
+    "ecmaFeatures": {
+      "jsx": true
+    }
   },
   "plugins": ["prettier", "react", "react-hooks"],
   "rules": {

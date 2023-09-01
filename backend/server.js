@@ -1,34 +1,49 @@
-const express = require('express');
-const cors = require('cors');
-const app = express();
-const PORT = 5000;
-const authRoutes = require('./routes/auth');
-const errorHandler = require('./middleware/errorHandler');
-const authenticateJWT = require('./middleware/auth');
-const mongoose = require('mongoose');
-
 //TODO: Handling token expiration and refresh token mechanisms.
 //TODO: Implementing a logout mechanism.
 //TODO: Implementing a password reset mechanism.
 //TODO: Implementing a password change mechanism.
 
-app.use(express.json()); // Parse JSON bodies (as sent by API clients)
-app.use(errorHandler); // Add the error handler middleware
-app.use('/api/auth', authRoutes); // Add the auth routes to the /api endpoint
-app.use(cors()); // Enable CORS
+//Organize these imports
+const express = require('express');
+const cors = require('cors');
+const expressServer = express();
+const PORT = 5000;
+const authRoutes = require('./routes/auth');
+const userRoutes = require('./routes/user');
+const gamesRoutes = require('./routes/game');
+const gameProgressRoutes = require('./routes/gameProgress');
+const errorHandler = require('./middleware/errorHandler');
+const authenticateJWT = require('./middleware/auth');
+const mongoose = require('mongoose');
 
-//Example endpoint
-app.get('/', (req, res) => {
-  res.json({ message: "Example endpoint." });
+// Middleware
+expressServer.use(express.json()); // Parse incoming JSON payloads
+expressServer.use(errorHandler);  // Handle errors centrally
+expressServer.use(cors()); // Allow CORS requests from all origins
+
+expressServer.use((err, req, res, next) => {
+  if (err.name === 'UnauthorizedError') {
+    res.status(err.status).send({ error: 'Unauthorized', message: err.message });
+    return;
+  }
+
+  // Handle other types of errors or pass them along
+  next(err);
 });
 
-// Example endpoint protected by `authenticateJWT` middleware 
-// Checks if the user has a valid JWT token before allowing access
-app.get('/protected-route', authenticateJWT, (req, res) => {
+// Routes
+expressServer.use('/api/auth', authRoutes);  // Authentication routes
+expressServer.use('/api/user', authenticateJWT, userRoutes);  // User routes
+expressServer.use('/api/game', gamesRoutes); // Games Routes
+expressServer.use('/api/gameProgress', gameProgressRoutes); //Game Progress Routes
+
+// Protected route with JWT authentication middleware
+expressServer.get('/protected-route', authenticateJWT, (req, res) => {
+  console.log(req);
   res.json({ message: "You've accessed a protected route!" });
 });
 
-// Start Connection to MongoDB
+// Start Connection to MongoDB to pokeTracker database
 mongoose.connect('mongodb://127.0.0.1:27017/pokeTracker', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -39,6 +54,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/pokeTracker', {
 });
 
 // Start the server
-app.listen(PORT, () => {
+expressServer.listen(PORT, () => {
     console.log(`Servers started on http://localhost:${PORT}`);
 });
+
