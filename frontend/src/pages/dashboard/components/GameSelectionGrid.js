@@ -1,13 +1,13 @@
 import React from 'react';
 import Grid from '@mui/material/Grid';
-import GameTile from './GameTitle';
+import GameCard from './GameCard';
 
 const GameSelectionGrid = ({ games }) => (
   <Grid container spacing={3}>
-    {console.log(games)}
     {games.map((game) => (
+      console.log(game.name),
       <Grid item key={game.id}>
-        <GameTile gameName={game.name} gameCover={game.cover} progress={game.progress} />
+        <GameCard name={game.name} cover={game.coverImage} progress={0} />
       </Grid>
     ))}
   </Grid>
