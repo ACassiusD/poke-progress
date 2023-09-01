@@ -1,37 +1,39 @@
 # 🌟 Poke-Tracker 🌟
 
-**Poke-Tracker** is a completion and achievement tracker for Pokémon games. It aims to provide a gamut of features that aren't inherently tracked by the native games, like obtained TMs, berries, beauty contest ribbons, and also a platform to publish challenge runs.
+**Poke-Tracker** is a completion and achievement tracker for Pokémon games. It offers features not inherently tracked by the native games, such as obtained TMs, berries, beauty contest ribbons, and provides a platform to publish challenge runs.
 
 ## 🛠️ Technology Stack
 
 ### Frontend:
-- **[React](https://reactjs.org/)**: Our go-to library for building the user interface.
-- **[React Router](https://reactrouter.com/)**: Handles navigation and URL management for our SPA.
-- **[Material UI](https://material-ui.com/)**: A UI framework to enhance our React app's appearance.
+- **[React](https://reactjs.org/)**: The primary library for building the user interface.
+- **[Mantis React Admin Dashboard Template](https://mui.com/store/items/mantis-free-react-admin-dashboard-template/)**: A Material-UI-based template streamlining frontend development.
+- **[React Router](https://reactrouter.com/)**: Manages navigation and URL for our SPA.
+- **[Material-UI](https://material-ui.com/)**: A UI framework enhancing our React app's aesthetics.
 
 ### Backend:
-- **[Node.js](https://nodejs.org/)**: Enables server-side JavaScript execution.
-- **[Express](https://expressjs.com/)**: A minimalistic web framework for Node.js, simplifying API creation.
-- **[Poke API](https://pokeapi.co/)**: Provides comprehensive Pokémon data, avoiding redundancy.
+- **[Node.js](https://nodejs.org/)**: Powers server-side JavaScript execution.
+- **[Express](https://expressjs.com/)**: A web framework for Node.js, facilitating API creation.
+- **[Poke API](https://pokeapi.co/)**: Offers comprehensive Pokémon data.
 
-### Database (TBD):
-- **SQL vs MongoDB**: A relational database (e.g., MySQL, PostgreSQL) versus NoSQL (MongoDB) is still in deliberation, as both have their strengths.
+### Database:
+- **[MongoDB](https://www.mongodb.com/)**: Our chosen NoSQL database, valued for its flexibility and scalability.
 
 ### Authentication:
-- **[JWT](https://jwt.io/)** (JSON Web Tokens): A compact method of representing information between two parties.
+- **[JWT](https://jwt.io/)** (JSON Web Tokens): A compact, secure method for transmitting information.
+- **[bcrypt](https://www.npmjs.com/package/bcrypt)**: A library used for hashing and verifying passwords.
 
-### Hosting/Deployment:
-- **[AWS](https://aws.amazon.com/)**: A potential host for both our React frontend and Node.js backend.
-- **[Vercel](https://vercel.com/)**: Another hosting option we're considering.
+### Deployment & Hosting:
+- **[AWS](https://aws.amazon.com/)**: A potential platform for hosting both frontend and backend.
+- **[Vercel](https://vercel.com/)**: Another hosting option under consideration.
 
 ## 📂 Directory Structure
-- `/frontend`: All React frontend application-related code resides here.
-- `/backend`: Contains the Express.js backend - routes, logic, and other server-side features.
+- `/frontend`: Houses the React frontend application code.
+- `/backend`: Contains the Express.js backend, including routes, logic, and other server-side functionalities.
 
 ## 💡 Future Endeavors
-- User account functionalities.
-- Distinct achievement banners upon hitting user milestones.
-- A mechanism to vote and rank user-generated challenge runs.
+- Implementing user account functionalities.
+- Introducing distinct achievement banners for user milestones.
+- Developing a mechanism to vote on and rank user-generated challenge runs.
 
 ## 🤝 How to Contribute
-Contributions are heartily welcome! For guidelines, kindly refer to `CONTRIBUTING.md`.
+Your contributions are greatly appreciated. For guidelines, please refer to `CONTRIBUTING.md`.
