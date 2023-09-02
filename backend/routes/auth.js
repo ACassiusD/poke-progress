@@ -38,7 +38,10 @@ router.post('/register', async (req, res) => {
 // Post request to Authenticate an existing user
 router.post('/login', async (req, res) => {
   try {
+    console.log('test');
+    console.log(req.body);
     const user = await User.findOne({ username: req.body.username });
+    console.log(user);
 
     // Handle the case where a user does not exist or password is wrong
     if (!user || !(await user.validatePassword(req.body.password))) {

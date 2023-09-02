@@ -10,7 +10,7 @@ const DashboardDefault = () => {
   //On page load, fetch the list of games
   // TODO: UPDATE ENDPOINT
   useEffect(() => {
-    fetch('http://localhost:5000/api/game/findAll')  
+    fetch('http://localhost:5000/api/game/findAll')
       .then(response => response.json())
       .then(data => {
         setGames(data);  // Set the games data to state

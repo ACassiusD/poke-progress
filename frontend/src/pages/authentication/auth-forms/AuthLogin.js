@@ -1,5 +1,10 @@
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
+import * as Yup from 'yup';
+import { Formik } from 'formik';
+import FirebaseSocial from './FirebaseSocial';
+import AnimateButton from 'components/@extended/AnimateButton';
+import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
 
 // material-ui
 import {
@@ -18,23 +23,12 @@ import {
   Typography
 } from '@mui/material';
 
-// third party
-import * as Yup from 'yup';
-import { Formik } from 'formik';
+// ============================|| LOGIN ||============================ //
 
-// project import
-import FirebaseSocial from './FirebaseSocial';
-import AnimateButton from 'components/@extended/AnimateButton';
-
-// assets
-import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
-
-// ============================|| FIREBASE - LOGIN ||============================ //
-
-const AuthLogin = () => {
+const AuthLogin = ({ onLogin }) => {
   const [checked, setChecked] = React.useState(false);
-
   const [showPassword, setShowPassword] = React.useState(false);
+
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
   };
@@ -47,17 +41,16 @@ const AuthLogin = () => {
     <>
       <Formik
         initialValues={{
-          email: 'info@codedthemes.com',
-          password: '123456',
           submit: null
         }}
         validationSchema={Yup.object().shape({
-          email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
+          username: Yup.string().max(255).required('Username is required'),
           password: Yup.string().max(255).required('Password is required')
         })}
         onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
           try {
-            setStatus({ success: false });
+            await onLogin(values.username, values.password);
+            setStatus({ success: true });
             setSubmitting(false);
           } catch (err) {
             setStatus({ success: false });
@@ -69,27 +62,29 @@ const AuthLogin = () => {
         {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
           <form noValidate onSubmit={handleSubmit}>
             <Grid container spacing={3}>
+              {/* Username Input Field */}
               <Grid item xs={12}>
                 <Stack spacing={1}>
-                  <InputLabel htmlFor="email-login">Email Address</InputLabel>
+                  <InputLabel htmlFor="username-login">Username</InputLabel>
                   <OutlinedInput
-                    id="email-login"
-                    type="email"
-                    value={values.email}
-                    name="email"
+                    id="username-login"
+                    type="text"
+                    value={values.username}
+                    name="username"
                     onBlur={handleBlur}
                     onChange={handleChange}
-                    placeholder="Enter email address"
+                    placeholder="Enter username"
                     fullWidth
-                    error={Boolean(touched.email && errors.email)}
+                    error={Boolean(touched.username && errors.username)}
                   />
-                  {touched.email && errors.email && (
-                    <FormHelperText error id="standard-weight-helper-text-email-login">
-                      {errors.email}
+                  {touched.username && errors.username && (
+                    <FormHelperText error id="standard-weight-helper-text-username-login">
+                      {errors.username}
                     </FormHelperText>
                   )}
                 </Stack>
               </Grid>
+              {/* Password Input Field */}
               <Grid item xs={12}>
                 <Stack spacing={1}>
                   <InputLabel htmlFor="password-login">Password</InputLabel>
@@ -124,7 +119,7 @@ const AuthLogin = () => {
                   )}
                 </Stack>
               </Grid>
-
+              {/* Keep me sign in & Forgot Password */}
               <Grid item xs={12} sx={{ mt: -1 }}>
                 <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2}>
                   <FormControlLabel
@@ -149,6 +144,7 @@ const AuthLogin = () => {
                   <FormHelperText error>{errors.submit}</FormHelperText>
                 </Grid>
               )}
+              {/* Login Button */}
               <Grid item xs={12}>
                 <AnimateButton>
                   <Button disableElevation disabled={isSubmitting} fullWidth size="large" type="submit" variant="contained" color="primary">
@@ -156,11 +152,13 @@ const AuthLogin = () => {
                   </Button>
                 </AnimateButton>
               </Grid>
+              {/* Login With Button */}
               <Grid item xs={12}>
                 <Divider>
                   <Typography variant="caption"> Login with</Typography>
                 </Divider>
               </Grid>
+              {/* Firebase Socials */}
               <Grid item xs={12}>
                 <FirebaseSocial />
               </Grid>

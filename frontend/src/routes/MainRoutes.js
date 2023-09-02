@@ -4,6 +4,9 @@ import { lazy } from 'react';
 import Loadable from 'components/Loadable';
 import MainLayout from 'layout/MainLayout';
 
+// render game details
+const GameDetails = Loadable(lazy(() => import('pages/game-details')));
+
 // render - dashboard
 const DashboardDefault = Loadable(lazy(() => import('pages/dashboard')));
 
@@ -38,6 +41,10 @@ const MainRoutes = {
           element: <DashboardDefault />
         }
       ]
+    },
+    {
+      path: 'game/:gameId',
+      element: <GameDetails />
     },
     {
       path: 'sample-page',

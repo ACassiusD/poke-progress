@@ -5,7 +5,6 @@ import GameCard from './GameCard';
 const GameSelectionGrid = ({ games }) => (
   <Grid container spacing={3}>
     {games.map((game) => (
-      console.log(game.name),
       <Grid item key={game.id}>
         <GameCard name={game.name} cover={game.coverImage} progress={0} />
       </Grid>
