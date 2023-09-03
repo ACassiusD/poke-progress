@@ -26,8 +26,11 @@ import ProfileTab from './ProfileTab';
 import SettingTab from './SettingTab';
 
 // assets
-import avatar1 from 'assets/images/users/avatar-1.png';
 import { LogoutOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
+
+// Get user data from local storage
+const storedUserData = localStorage.getItem('user');
+const userData = storedUserData ? JSON.parse(storedUserData) : null;
 
 // tab panel wrapper
 function TabPanel({ children, value, index, ...other }) {
@@ -97,8 +100,8 @@ const Profile = () => {
         onClick={handleToggle}
       >
         <Stack direction="row" spacing={2} alignItems="center" sx={{ p: 0.5 }}>
-          <Avatar alt="profile user" src={avatar1} sx={{ width: 32, height: 32 }} />
-          <Typography variant="subtitle1">John Doe</Typography>
+          <Avatar alt="profile user" src={userData ? userData.avatar : ''} sx={{ width: 32, height: 32 }} />
+          <Typography variant="subtitle1">{userData ? userData.username : 'Guest'}</Typography>
         </Stack>
       </ButtonBase>
       <Popper
@@ -139,11 +142,11 @@ const Profile = () => {
                       <Grid container justifyContent="space-between" alignItems="center">
                         <Grid item>
                           <Stack direction="row" spacing={1.25} alignItems="center">
-                            <Avatar alt="profile user" src={avatar1} sx={{ width: 32, height: 32 }} />
+                            <Avatar alt="profile user" src={userData ? userData.avatar : ''} sx={{ width: 32, height: 32 }} />
                             <Stack>
-                              <Typography variant="h6">John Doe</Typography>
+                              <Typography variant="h6">{userData ? userData.username : 'Guest'}</Typography>
                               <Typography variant="body2" color="textSecondary">
-                                UI/UX Designer
+                                {userData ? userData.role : 'Guest'}
                               </Typography>
                             </Stack>
                           </Stack>

@@ -1,20 +1,13 @@
-/* eslint-disable no-unused-vars */
-import { useState, useContext, useEffect } from 'react';
+
+import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom'; // Added Link
 import { Grid, Typography, Stack } from '@mui/material';
 import AuthLogin from './auth-forms/AuthLogin';
 import AuthWrapper from './AuthWrapper';
-import { UserContext } from 'context/UserContext';
-import { get } from 'lodash';
 
 const Login = () => {
   const navigate = useNavigate();
-  const { userData, setUserData } = useContext(UserContext);
   const [error, setError] = useState(null);
-
-  useEffect(() => {
-    console.log('Current user data:', userData);
-  }, [userData]);
 
   //Define Login logic to be used in AuthLogin.js component
   const handleLogin = async (username, password) => {
@@ -43,10 +36,9 @@ const Login = () => {
 
         const userProfileData = await userProfileResponse.json();
 
-        //If the response is ok, set the user data to state and redirect to dashboard
+        //If the response is ok, set user data to local storage and navigate to dashboard
         if (userProfileResponse.ok) {
-          setUserData(userProfileData);
-
+          localStorage.setItem('user', JSON.stringify(userProfileData));
           navigate('/');
         } else {
           setError(userProfileData.message || 'Failed to fetch user profile.');

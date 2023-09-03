@@ -8,7 +8,6 @@ const GameCard = ({ name, cover, progress }) => (
     <CardContent>
       <Typography variant="h6" gutterBottom>
         {name}
-        {console.log(cover)}
       </Typography>
       <Typography variant="body2" color="textSecondary">
         Progress: {progress}%
