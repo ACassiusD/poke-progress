@@ -1,19 +1,25 @@
 /* eslint-disable no-unused-vars */
-import { useState, useContext } from 'react';
-import { useNavigate, Link } from 'react-router-dom';  // Added Link
+import { useState, useContext, useEffect } from 'react';
+import { useNavigate, Link } from 'react-router-dom'; // Added Link
 import { Grid, Typography, Stack } from '@mui/material';
 import AuthLogin from './auth-forms/AuthLogin';
 import AuthWrapper from './AuthWrapper';
 import { UserContext } from 'context/UserContext';
+import { get } from 'lodash';
 
 const Login = () => {
   const navigate = useNavigate();
-  const { setUserData } = useContext(UserContext);
+  const { userData, setUserData } = useContext(UserContext);
   const [error, setError] = useState(null);
+
+  useEffect(() => {
+    console.log('Current user data:', userData);
+  }, [userData]);
 
   //Define Login logic to be used in AuthLogin.js component
   const handleLogin = async (username, password) => {
     try {
+      // Make a call to authenticate the user and get a JWT
       const response = await fetch('http://localhost:5000/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -22,21 +28,34 @@ const Login = () => {
 
       const data = await response.json();
 
+      // If the response is ok, save the JWT to local storage and fetch the user profile
       if (response.ok) {
-        // Save JWT to local storage
         localStorage.setItem('jwt', data.token);
 
-        //TODO: Make a seconf fetch to get the user data
-        //TODO: Set the user data to state
-        setUserData(data.user);
+        // Make a second call to http://localhost:5000/api/user/profile to get the user data
+        const userProfileResponse = await fetch('http://localhost:5000/api/user/profile', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${data.token}`
+          }
+        });
 
-        // Redirect to dashboard
-        navigate('/');
+        const userProfileData = await userProfileResponse.json();
+
+        //If the response is ok, set the user data to state and redirect to dashboard
+        if (userProfileResponse.ok) {
+          setUserData(userProfileData);
+
+          navigate('/');
+        } else {
+          setError(userProfileData.message || 'Failed to fetch user profile.');
+        }
       } else {
         setError(data.message);
       }
     } catch (err) {
-      setError('Something went wrong. Please try again.');
+      setError('Failed to login.');
     }
   };
 

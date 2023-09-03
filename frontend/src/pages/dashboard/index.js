@@ -11,11 +11,11 @@ const DashboardDefault = () => {
   // TODO: UPDATE ENDPOINT
   useEffect(() => {
     fetch('http://localhost:5000/api/game/findAll')
-      .then(response => response.json())
-      .then(data => {
-        setGames(data);  // Set the games data to state
+      .then((response) => response.json())
+      .then((data) => {
+        setGames(data); // Set the games data to state
       })
-      .catch(error => {
+      .catch((error) => {
         console.error('Error fetching games:', error);
       });
   }, []);
